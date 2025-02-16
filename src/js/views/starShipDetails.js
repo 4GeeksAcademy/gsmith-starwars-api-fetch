@@ -13,7 +13,8 @@ export const StarShipDetails = () => {
         `https://www.swapi.tech/api/starships/${id}`
       );
       const data = await response.json();
-      setstarShip(data.result.properties);
+      setstarShip(data.result);
+      // console.log(starShip)
     };
 
     fetchStarShipDetails();
@@ -23,11 +24,11 @@ export const StarShipDetails = () => {
 
   return (
     <div className="container mt-4">
-      <h1>{starShip.name}</h1>
+      <h1>{ship.properties.name}</h1>
       <p>
         <strong>Decription:</strong> {ship.description}
       </p>
-      <p>
+      {/* <p>
         <strong>Cost in credits:</strong> {ship.cost_in_credits}
       </p>
       <p>
@@ -35,7 +36,7 @@ export const StarShipDetails = () => {
       </p>
       <p>
         <strong></strong> {starShip.height}
-      </p>
+      </p> */}
     </div>
   );
 };

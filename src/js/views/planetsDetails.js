@@ -11,7 +11,7 @@ export const PlanetsDetails = () => {
     const fetchPlanetsDetails = async () => {
       const response = await fetch(`https://www.swapi.tech/api/planets/${id}`);
       const data = await response.json();
-      setPlanet(data.result.properties);
+      setPlanet(data.result);
     };
 
     fetchPlanetsDetails();
@@ -20,11 +20,25 @@ export const PlanetsDetails = () => {
   if (!planet) return <h2>Loading...</h2>;
 
   return (
-    <div className="container mt-4">
-      <h1>{planet.name}</h1>
-      <p><strong>Diameter:</strong> {planet.diameter}</p>
-      <p><strong>Gravity:</strong> {planet.gravity}</p>
-      <p><strong>Population:</strong> {planet.population}</p>
+    <div className="card" style={{width: "100%"}}>
+      <div className="card-body d-flex">
+      <img src="..." className="card-img-top" alt="..." />
+      <p className="card-text">
+          {planet.description}
+        </p>
+      </div>
+      <div className="card cardBody2 d-flex" style={{width: "100%", height:"100%"}}>
+        <p>NAme: {planet.properties.name}</p>
+        <p>Gravity: {planet.properties.gravity}</p>
+
+        <p>Diameter:{planet.properties.diameter}</p>
+
+        <p>Climate:{planet.properties.climate}</p>
+
+        <p></p>
+
+
+      </div>
     </div>
   );
 };

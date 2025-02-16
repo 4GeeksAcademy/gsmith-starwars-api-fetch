@@ -20,9 +20,18 @@ export const StarShipCardComponent = ({ ship }) => {
           Passengers: {ship.properties.passengers} <br />
         </p>{" "}
         <br />
+        <div className="card-footer">
         <Link to={`/starship/{starship.uid}`} className="btn btn-primary">
           Learn More
         </Link>
+        <button
+            className="favorite-btn heart " style={{height: "10px"}}
+            onClick={() => actions.toggleFavorite(character)}
+          >
+            ♥
+          </button>
+        </div>
+        
       </div>
     </div>
   );

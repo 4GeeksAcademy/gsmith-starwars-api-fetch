@@ -113,8 +113,33 @@ const getState = ({ getStore, getActions, setStore }) => {
         //reset the global store
         setStore({ demo: demo });
       },
+      toggleFavorite: (item) => {
+        const store = getStore();
+        const isFavorite = store.favorites.some(fav => fav.uid === item.uid);
+
+        if (isFavorite) {
+          setStore({
+            favorites: store.favorites.filter(fav => fav.uid !== item.uid),
+          });
+        } else {
+          setStore({ favorites: [...store.favorites, item] });
+        }
+      },
+
+      
+      removeFavorite: (uid) => {
+        const store = getStore();
+        setStore({ favorites: store.favorites.filter(fav => fav.uid !== uid) });
+      },
+
+     
+      clearFavorites: () => {
+        setStore({ favorites: [] });
+      },
     },
   };
 };
+
+    
 
 export default getState;
