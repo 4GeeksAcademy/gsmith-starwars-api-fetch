@@ -1,3 +1,17 @@
 /* 
     General Styles
 */
+.card{
+    display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 18rem; 
+  height: 300px; 
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+.learnMore{
+    justify-content: flex-end;
+    padding-bottom: 10px;
+}

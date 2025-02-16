@@ -3,53 +3,95 @@ const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
       characters: [],
-      starships: [],
+      starShips: [],
       planets: [],
       favorites: [],
     },
     actions: {
       // Use getActions to call a function within a fuction
       getCharacters: async () => {
-        try {
-          const response = await fetch(URL + "people");
-          const body = await response.json();
-          const people = body.results;
+        const store = getStore();
+        const actions = getActions();
+        const detail = [];
 
-          setStore({ characters: people });
-        } catch (err) {
-          console.error(err);
+        const response = await fetch(URL + "people");
+        const body = await response.json();
+        const people = body.results;
+        for (const character of people) {
+          const characterDetails = await actions.getDetails(character);
+          // console.log(characterDetails);
+          detail.push(characterDetails.result);
         }
+        console.log(detail);
+
+        setStore({ characters: detail });
+        console.log("Characters in Store:", store.characters);
+        return detail;
+      },
+      getDetails: async (character) => {
+        const response = await fetch(character.url);
+        const data = await response.json();
+        return data;
       },
 
       getPlanets: async () => {
-        try {
-          const response = await fetch(URL + "planets");
-          const body = await response.json();
-          const planets = body.results;
-          setStore({ planets: planets });
-        } catch (err) {
-          console.error(err);
+        const store = getStore();
+        const actions = getActions();
+        const planetDetail = [];
+
+        const response = await fetch(URL + "planets");
+        const body = await response.json();
+        const starWarsplanets = body.results;
+        // console.log("here are the planets",starWarsplanets)
+
+        for (const planet of starWarsplanets) {
+          const allPlanetDetail =  await actions.getPlanetDetails(planet);
+          planetDetail.push(allPlanetDetail.result);
+          console.log("here are your details",planetDetail)
         }
+        setStore({planets : planetDetail})
+        // console.log("planets:",  store.planets)
+      },
+      getPlanetDetails: async (planet) => {
+        const response = await fetch(planet.url);
+        const data = await response.json();
+        return data;
       },
 
       getStarships: async () => {
-        try {
-          const response = await fetch(URL + "starship");
-          const body = await response.json();
-          const starship = body.results;
-          setStore({ starships: starship });
-        } catch (err) {
-          console.error(err);
+        const store = getStore();
+        const actions = getActions();
+        const starShipDetail = [];
+        
+        const response = await fetch(URL + "starships");
+        const body = await response.json();
+        const starShip = body.results;
+        for (const ship of starShip) {
+         const starWarsShip = await actions.getStarShipDetails(ship);
+          starShipDetail.push(starWarsShip.result);
+          // console.log("here are my ships", starShipDetail)
         }
+        setStore ({starShips : starShipDetail})
+        
+      },
+      getStarShipDetails: async (ship) => {
+        const response = await fetch(ship.url);
+        const data = await response.json();
+        return data;
       },
 
-      addFavorites: async () => {},
+      addFavorites: async () => {
+        // get uid when heart is click and add to favorites array
+      },
 
       getAllActions: async () => {
         const actions = getActions();
-        await actions.getCharacters();
-        await actions.getPlanets();
-        await actions.getStarships();
+        await Promise.all([
+          actions.getCharacters(),
+          actions.getPlanets(),
+          actions.getStarships(),
+          console.log("here is the data:" , getAllActions())
+        ]);
       },
 
       loadSomeData: () => {

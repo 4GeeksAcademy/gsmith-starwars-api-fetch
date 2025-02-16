@@ -6,28 +6,34 @@ import { Context } from "../store/appContext";
 
 import "../../styles/demo.css";
 
-
-
-export const CharacterCardComponent = ({character}) => {
+export const CharacterCardComponent = ({ character }) => {
   const [card, setCard] = useState();
   const { store, actions } = useContext(Context);
+  const [isFavorite, setIsFavorite] = useState(
+    store.favorites.some((fav) => fav.uid === character.uid)
+  );
+
   
-    return(
-      
-         <div className="card charactercard me-3" style={{minWidth:"10em"}}> 
-           <img src="..." className="card-img-top" alt="..."/>
-           <div className="card-body">
-             <h5 className="card-title">{character.name}</h5>
-             <p className="card-text d-block">
-               Gender: {character.gender} 
-               Eye Color: {character.eye_color}
-               Hair Color: {character.hair_color}</p> <br/>
+  const toggleFavorite = () => {
+    actions.addFavorites(character);
+    setIsFavorite(!isFavorite);
+  };
 
-             <Link to="#" className="btn btn-primary">Learn More</Link>
-           </div>
-        </div>
-        
-
-        
-    )
-}
+  return (
+    <div className="card charactercard me-3" style={{ minWidth: "10em" }}>
+      <img src="..." className="card-img-top" alt="..." />
+      <div className="card-body">
+        <h5 className="card-title">{character.properties.name}</h5>
+        <p className="card-text d-block">
+          Gender: {character.properties.gender} <br/>
+          Eye Color: {character.properties.eye_color} <br/>
+          Hair Color: {character.properties.hair_color}
+        </p>{" "}
+        <br />
+        <Link to = {`/character/${character.uid}`} className=" learnMore btn btn-primary">
+          Learn More
+        </Link>
+      </div>
+    </div>
+  );
+};

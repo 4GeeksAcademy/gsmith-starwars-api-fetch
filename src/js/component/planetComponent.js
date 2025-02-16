@@ -14,15 +14,15 @@ export const PlanetCardComponent = ({planet}) => {
   
     return(
       
-         <div className="card charactercard me-3" style={{minWidth:"10em"}}> 
+         <div className="card planetcard me-3" > 
            <img src="..." className="card-img-top" alt="..."/>
-           <div className="card-body">
-             <h5 className="card-title">{planet.name}</h5>
+           <div className="card-body d-flex">
+             <h5 className="card-title">{planet.properties.name}</h5>
              <p className="card-text d-block">
-               Population: {planet} 
-               Terain: {planet} </p>
+               Population: {planet.properties.population} 
+               Terain: {planet.properties.terain} </p>
 
-             <Link to="#" className="btn btn-primary">Learn More</Link>
+             <Link to={`/planet/${planet.uid}`} className="btn btn-primary">Learn More</Link>
            </div>
         </div>
         
