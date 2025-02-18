@@ -1,6 +1,8 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 // import { FaTrash, FaHeart } from "react-icons/fa";
 
 export const Navbar = () => {
@@ -32,7 +34,10 @@ export const Navbar = () => {
                       className="btn btn-sm btn-danger"
                       onClick={() => actions.removeFavorite(fav.uid)}
                     >
-                      <FaTrash />
+                      <FontAwesomeIcon
+                      icon={faTrash}
+                      size="lg"/>
+                      
                     </button>
                   </div>
                 ))}
