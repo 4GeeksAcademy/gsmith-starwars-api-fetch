@@ -5,7 +5,7 @@ import { Context } from "../store/appContext";
 export const StarShipDetails = () => {
   const { id } = useParams();
   const { store, actions } = useContext(Context);
-  const [starShip, setstarShip] = useState(null);
+  const [starShip, setStarShip] = useState(null);
 
   useEffect(() => {
     const fetchStarShipDetails = async () => {
@@ -13,7 +13,7 @@ export const StarShipDetails = () => {
         `https://www.swapi.tech/api/starships/${id}`
       );
       const data = await response.json();
-      setstarShip(data.result);
+      setStarShip(data.result);
       // console.log(starShip)
     };
 
@@ -24,19 +24,19 @@ export const StarShipDetails = () => {
 
   return (
     <div className="container mt-4">
-      <h1>{ship.properties.name}</h1>
+      <h1>{starShip.properties.name}</h1>
       <p>
-        <strong>Decription:</strong> {ship.description}
-      </p>
-      {/* <p>
-        <strong>Cost in credits:</strong> {ship.cost_in_credits}
+        <strong>Decription:</strong> {starShip.description}
       </p>
       <p>
-        <strong></strong> {starShip.hair_color}
+        <strong>Cost in credits:</strong> {starShip.properties.cost_in_credits}
       </p>
       <p>
-        <strong></strong> {starShip.height}
-      </p> */}
+        <strong>Passengers</strong> {starShip.properties.pasengers}
+      </p>
+      <p>
+        <strong>Manufacturer</strong> {starShip.properties.manufacturer}
+      </p>
     </div>
   );
 };
